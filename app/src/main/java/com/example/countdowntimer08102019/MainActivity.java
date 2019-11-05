@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageView mImgBanner;
     int[] arrayImage = new int[4];
+    int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,15 +24,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mapview() {
-        CountDownTimer countDownTimer = new CountDownTimer(10000,5000 ) {
+
+        CountDownTimer countDownTimer = new CountDownTimer(2000,2000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                Log.d("BBB",millisUntilFinished + "");
-            }
+                mImgBanner.setImageResource(arrayImage[count++]);
+                if (count >= arrayImage.length){
+                    count = 0;
+                }
 
+            }
             @Override
             public void onFinish() {
-
+                this.start();
             }
         };
         countDownTimer.start();
